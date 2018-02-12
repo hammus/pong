@@ -46,9 +46,10 @@
     <Compile Include="Actors\Actor.cs" />
     <Compile Include="Actors\APlayer.cs" />
     <Compile Include="Game1.cs" />
-    <Compile Include="PongMatch.cs" />
+    <Compile Include="StateManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utilities\Extensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">

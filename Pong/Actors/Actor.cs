@@ -15,6 +15,22 @@ namespace Pong.Actors
         public float Rotation = 0f;
         public float LayerDepth = 0f;
 
+        public int Width
+        {
+            get
+            {
+                return Texture.Width;
+            }
+        }
+
+        public int Height
+        {
+            get
+            {
+                return Texture.Height;
+            }
+        }
+
         protected GraphicsDeviceManager _graphics;
         protected Rectangle _destinationRect
         {
@@ -24,14 +40,15 @@ namespace Pong.Actors
             }
         }
 
-        public Actor(GraphicsDeviceManager graphics) {
+        public Actor(GraphicsDeviceManager graphics)
+        {
             _graphics = graphics;
         }
 
         public virtual void LoadContent(Texture2D texture, bool originCenter = true)
         {
             Texture = texture;
-            Origin = (originCenter) ? new Vector2(Texture.Width/2, Texture.Height/2) : Vector2.Zero;
+            Origin = (originCenter) ? new Vector2(Texture.Width / 2, Texture.Height / 2) : Vector2.Zero;
 
         }
         //new Rectangle(_graphics.PreferredBackBufferWidth / 2, _graphics.PreferredBackBufferHeight / 2, Texture.Width, Texture.Height),

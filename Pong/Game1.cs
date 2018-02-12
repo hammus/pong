@@ -34,8 +34,8 @@ namespace Pong
         {
             // TODO: Add your initialization logic here
             aBall = new ABall(graphics);
-            aPlayer1 = new APlayer(graphics, new Vector2(graphics.PreferredBackBufferWidth/2, graphics.PreferredBackBufferHeight-20)); 
-            aPlayer2 = new APlayer(graphics, new Vector2(graphics.PreferredBackBufferWidth/2, 20));
+            aPlayer1 = new APlayer(graphics, PlayerIndex.One, new Vector2(graphics.PreferredBackBufferWidth/2, graphics.PreferredBackBufferHeight-20)); 
+            aPlayer2 = new APlayer(graphics, PlayerIndex.Two, new Vector2(graphics.PreferredBackBufferWidth/2, 20));
 
             base.Initialize();
         }
@@ -78,6 +78,19 @@ namespace Pong
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
+
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Start == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Enter))
+            {
+                GameState currentState = StateManager.GetState();
+
+                if (currentState == GameState.PAUSED)
+                {
+                    StateManager.Play();
+                } else if (currentState == GameState.PLAYING)
+                {
+                    StateManager.Pause();
+                }
+            }
 
             // TODO: Add your update logic here
             aBall.Update(gameTime);
