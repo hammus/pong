@@ -4,8 +4,20 @@ using Microsoft.Xna.Framework.Input;
 
 namespace Pong.Actors
 {
-    public class Actor
+    public interface IActor
     {
+        void LoadContent(Texture2D texture, bool originCenter);
+        void Draw(SpriteBatch spriteBatch);
+        void Update(GameTime gameTime);
+        void Initialize();
+    }
+
+    public enum VerticalLocation { Top, Bottom }
+    public enum HorizontalLocation { Left, Right }
+
+    public class Actor: IActor
+    {
+
         public Texture2D Texture;
         public Vector2 Position;
         public Vector2 Origin = Vector2.Zero;
@@ -14,7 +26,8 @@ namespace Pong.Actors
         public Rectangle? SourceRect = null;
         public float Rotation = 0f;
         public float LayerDepth = 0f;
-
+        public ActorTag ActorTag;
+        
         public int Width
         {
             get
@@ -31,8 +44,7 @@ namespace Pong.Actors
             }
         }
 
-        protected GraphicsDeviceManager _graphics;
-        protected Rectangle _destinationRect
+        public Rectangle DestinationRect
         {
             get
             {
@@ -40,10 +52,17 @@ namespace Pong.Actors
             }
         }
 
-        public Actor(GraphicsDeviceManager graphics)
+        protected GraphicsDeviceManager _graphics;
+       
+
+        public Actor(GraphicsDeviceManager graphics, ActorTag actorTag)
         {
             _graphics = graphics;
+            ActorTag = actorTag;
+            ActorManager.RegisterActor(this);
         }
+
+        public virtual void Initialize() { }
 
         public virtual void LoadContent(Texture2D texture, bool originCenter = true)
         {
@@ -57,7 +76,7 @@ namespace Pong.Actors
         {
             spriteBatch.Draw(
                     Texture,
-                    _destinationRect,
+                    DestinationRect,
                     SourceRect, //source rect
                     SpriteColor,
                     Rotation, // rotation
@@ -68,6 +87,8 @@ namespace Pong.Actors
         }
 
         public virtual void Update(GameTime gameTime) { }
+
+       
+        
     }
-}
-;
+};

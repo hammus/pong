@@ -10,6 +10,35 @@ namespace Pong
     public static class StateManager
     {
 
+        private static int _scoreP1 = 0;
+        private static int _scoreP2 = 0;
+        public static int ScoreP1
+        {
+            get
+            {
+                return _scoreP1;
+            }
+        }
+
+        public static int ScoreP2
+        {
+            get
+            {
+                return _scoreP2;
+            }
+        }
+
+        public static void GoalP1()
+        {
+            _scoreP1++;
+        }
+
+        public static void GoalP2()
+        {
+            _scoreP2++;
+        }
+
+
         public static bool Playing
         {
             get
@@ -43,6 +72,7 @@ namespace Pong
         {
             return StateManager.GameState;
         }
+
 
     }
 }

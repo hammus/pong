@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="Actors\ABall.cs" />
     <Compile Include="Actors\Actor.cs" />
+    <Compile Include="Actors\ActorManager.cs" />
     <Compile Include="Actors\APlayer.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="StateManager.cs" />

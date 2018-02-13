@@ -15,7 +15,7 @@ namespace Pong
         ABall aBall;
         APlayer aPlayer1;
         APlayer aPlayer2;
-        
+        SpriteFont font;
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -32,10 +32,10 @@ namespace Pong
         /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
-            aBall = new ABall(graphics);
-            aPlayer1 = new APlayer(graphics, PlayerIndex.One, new Vector2(graphics.PreferredBackBufferWidth/2, graphics.PreferredBackBufferHeight-20)); 
-            aPlayer2 = new APlayer(graphics, PlayerIndex.Two, new Vector2(graphics.PreferredBackBufferWidth/2, 20));
+            // TODO: Add your initialization logic 
+            aBall = new ABall(graphics, ActorTag.Ball);
+            aPlayer1 = new APlayer(graphics, ActorTag.Player1, PlayerIndex.One, new Vector2(graphics.PreferredBackBufferWidth/2, graphics.PreferredBackBufferHeight-20)); 
+            aPlayer2 = new APlayer(graphics, ActorTag.Player2, PlayerIndex.Two, new Vector2(graphics.PreferredBackBufferWidth/2, 20));
 
             base.Initialize();
         }
@@ -48,6 +48,8 @@ namespace Pong
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+
+            font = Content.Load<SpriteFont>("Pixel");
 
             Texture2D texBall = Content.Load<Texture2D>("ball");
             Texture2D texPlayer1 = Content.Load<Texture2D>("barP1");
@@ -108,8 +110,13 @@ namespace Pong
         {
             GraphicsDevice.Clear(Color.Black);
 
+            string p1ScoreText = $"P1 Score: {StateManager.ScoreP1}";
+            string p2ScoreText = $"P2 Score: {StateManager.ScoreP2}";
+
             // TODO: Add your drawing code here
             spriteBatch.Begin();
+            spriteBatch.DrawString(font, p1ScoreText, new Vector2(10, graphics.PreferredBackBufferHeight - 30), Color.LimeGreen);
+            spriteBatch.DrawString(font, p2ScoreText, new Vector2(10, 10), Color.IndianRed);
 
             aBall.Draw(spriteBatch);
             aPlayer1.Draw(spriteBatch);

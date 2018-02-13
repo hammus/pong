@@ -49,3 +49,10 @@
 /processorParam:TextureFormat=Color
 /build:barP2.png
 
+#begin Pixel.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Pixel.spritefont
+

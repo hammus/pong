@@ -6,34 +6,29 @@ using Pong.Utilities;
 
 namespace Pong.Actors
 {
-    public class APlayer : Actor
+    public class APlayer : Actor, IActor
     {
         public bool IsPlayerControlled = true;
         public PlayerIndex ControllerIndex;
         public float Speed = 400.0f;
-        public int Width
-        {
-            get
-            {
-                return Texture.Width;
-            }
-        }
+        public float CollisionBoundaryY;
 
-        public int Height
-        {
-            get
-            {
-                return Texture.Height;
-            }
-        }
 
-        public APlayer(GraphicsDeviceManager graphics, PlayerIndex controllerIndex, Vector2 startingPosition) : base(graphics)
+        public APlayer(GraphicsDeviceManager graphics, ActorTag actorType, PlayerIndex controllerIndex, Vector2 startingPosition) : base(graphics, actorType)
         {
             //Set Starting Position
             Position = startingPosition;
             ControllerIndex = controllerIndex;
+            ActorTag = actorType;
+            
         }
 
+
+        public override void LoadContent(Texture2D texture, bool originCenter = true)
+        {
+            base.LoadContent(texture, originCenter);
+            CollisionBoundaryY = (ActorTag == ActorTag.Player1) ? Position.Y - (Texture.Height) : Position.Y + (Texture.Height);
+        }
 
         public override void Update(GameTime gameTime)
         { 
