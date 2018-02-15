@@ -32,7 +32,6 @@ namespace Pong
         /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic 
             aBall = new ABall(graphics, ActorTag.Ball);
             aPlayer1 = new APlayer(graphics, ActorTag.Player1, PlayerIndex.One, new Vector2(graphics.PreferredBackBufferWidth/2, graphics.PreferredBackBufferHeight-20)); 
             aPlayer2 = new APlayer(graphics, ActorTag.Player2, PlayerIndex.Two, new Vector2(graphics.PreferredBackBufferWidth/2, 20));

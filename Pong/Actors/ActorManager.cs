@@ -11,7 +11,6 @@ namespace Pong.Actors
     {
         public static List<Actor> Actors = new List<Actor>();
 
-
         public static APlayer GetPlayer(ActorTag actorTag)
         {
             return (APlayer)Actors.Find(x => x.ActorTag == actorTag);
@@ -23,7 +22,8 @@ namespace Pong.Actors
             Actors.Add(actor);
         }
 
-        public static bool CheckCollision(ABall ball)
+
+        public static Actor CheckCollision(ABall ball)
         {
             APlayer player;
             switch (ball.VerticalLocation)
@@ -35,20 +35,21 @@ namespace Pong.Actors
                     player = GetPlayer(ActorTag.Player2);
                     return AABBCollision(ball, player);
                 default:
-                    return false;
+                    return null;
             }
         }
 
-        private static bool AABBCollision(ABall ball, APlayer player)
+        private static APlayer AABBCollision(ABall ball, APlayer player)
         {
             Rectangle rect1 = ball.DestinationRect;
             Rectangle rect2 = player.DestinationRect;
+
             return (
                 rect1.X < rect2.X + rect2.Width &&
                 rect1.X + rect1.Width > rect2.X &&
                 rect1.Y < rect2.Y + rect2.Height &&
                 rect1.Height + rect1.Y > rect2.Y
-            );
+            ) ? player : null;
 
         }
 

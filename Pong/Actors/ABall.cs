@@ -46,13 +46,10 @@ namespace Pong.Actors
             }
         }
 
-        private List<Vector2> _startingDirections = new List<Vector2> { Vector2.One * -1.5f, Vector2.One * -1f, Vector2.One * -0.5f, Vector2.One * 0.5f, Vector2.One, Vector2.One * 1.5f };
-
         public void Reset()
         {
             Position = _startingPosition.Clone();
-            Direction = _startingDirections.RandomElement();
-
+            Direction = Vector2Extension.RandomUnitVector();
         }
 
         public ABall(GraphicsDeviceManager graphics, ActorTag actorType) : base(graphics, actorType)
@@ -100,10 +97,19 @@ namespace Pong.Actors
             {
                 Direction.X *= -1f;
             }
-
-            if (ActorManager.CheckCollision(this))
+            APlayer player = (APlayer)ActorManager.CheckCollision(this);
+            if (player != null)
             {
                 Direction.Y *= -1f;
+                if (VerticalLocation == VerticalLocation.Bottom)
+                {
+                    //Move outside Collision Boundary 
+                    Position.Y = player.CollisionBoundaryY - 1;
+                } else if (VerticalLocation == VerticalLocation.Top)
+                {
+                    //Move outside Collision Boundary 
+                    Position.Y = player.CollisionBoundaryY + 1;
+                }
             }
             if (nextPosition.Y >= _graphics.PreferredBackBufferHeight)
             {

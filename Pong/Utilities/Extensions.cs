@@ -8,11 +8,47 @@ namespace Pong.Utilities
 {
     public static class Vector2Extension
     {
+        public static Random rng = new Random();
         public static Vector2 Clone(this Vector2 sourceVec)
         {
             return new Vector2(sourceVec.X, sourceVec.Y);
         }
+        private static List<Vector2> forbiddenStartingDirections = new List<Vector2> { new Vector2(1f,0f), new Vector2(-1f,0f) };
+        /// <summary>
+        /// Generates a random unit vector (in the -1 to 1 space) 
+        /// </summary>
+        /// <returns></returns>
+        public static Vector2 RandomUnitVector()
+        {
+            Vector2 result = GetRandomUnitVector();
+            if (forbiddenStartingDirections.Find(v => v == result) != default(Vector2))
+            {
+                return RandomUnitVector();
+            }
+            return result;
+        }
+
+        private static Vector2 GetRandomUnitVector()
+        {
+            float x = RandomOrdinateF();
+            float y = RandomOrdinateF();
+            return new Vector2(x, y);
+        }
+
+        /// <summary>
+        /// Returns a Random float, used to generate random Ordinate x or y for a Vector2, value between -1 and 1
+        /// </summary>
+        /// <returns></returns>
+        public static float RandomOrdinateF()
+        {
+            var next = rng.NextDouble();
+            float min = -1.5f;
+            float max = 1.5f;
+            return min + ((float)next * (max - min));
+        }
     }
+
+  
 
     public static class EnumerableExtension
     {
