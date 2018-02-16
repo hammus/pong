@@ -49,14 +49,14 @@ namespace Pong.Actors
         public void Reset()
         {
             Position = _startingPosition.Clone();
-            Direction = Vector2Extension.RandomUnitVector();
+            Direction = Vector2Extension.RandomStartingVector();
         }
 
         public ABall(GraphicsDeviceManager graphics, ActorTag actorType) : base(graphics, actorType)
         {
             //Set Starting Position
             _startingPosition = new Vector2(_graphics.PreferredBackBufferWidth / 2, _graphics.PreferredBackBufferHeight / 2);
-            Position = _startingPosition.Clone();
+            Reset();
         }
 
         public override void Update(GameTime gameTime)

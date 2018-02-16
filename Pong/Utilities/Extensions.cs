@@ -13,7 +13,8 @@ namespace Pong.Utilities
         {
             return new Vector2(sourceVec.X, sourceVec.Y);
         }
-        private static List<Vector2> forbiddenStartingDirections = new List<Vector2> { new Vector2(1f,0f), new Vector2(-1f,0f) };
+        private static List<Vector2> _forbiddenStartingDirections = new List<Vector2> { new Vector2(1f,0f), new Vector2(-1f,0f) };
+        private static List<Vector2> _startingDirections = new List<Vector2> { new Vector2(1.5f, 1), new Vector2(-1.5f, -1f), new Vector2(-1.5f, 1f), new Vector2(1.5f, -1f) };
         /// <summary>
         /// Generates a random unit vector (in the -1 to 1 space) 
         /// </summary>
@@ -21,7 +22,7 @@ namespace Pong.Utilities
         public static Vector2 RandomUnitVector()
         {
             Vector2 result = GetRandomUnitVector();
-            if (forbiddenStartingDirections.Find(v => v == result) != default(Vector2))
+            if (_forbiddenStartingDirections.Find(v => v == result) != default(Vector2))
             {
                 return RandomUnitVector();
             }
@@ -33,6 +34,11 @@ namespace Pong.Utilities
             float x = RandomOrdinateF();
             float y = RandomOrdinateF();
             return new Vector2(x, y);
+        }
+
+        public static Vector2 RandomStartingVector()
+        {
+            return _startingDirections[rng.Next(_startingDirections.Count)];
         }
 
         /// <summary>
